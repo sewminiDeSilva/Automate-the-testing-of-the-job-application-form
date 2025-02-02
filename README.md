@@ -1,3 +1,4 @@
+
 # Job Application Form Automation Testing
 
 This project automates the testing of a job application form using Playwright. The tests cover various scenarios to ensure the form behaves as expected.
@@ -24,3 +25,34 @@ The following test scenarios are automated:
 To set up this project locally, follow these steps:
 
 1. **Clone the Repository**:
+   ```
+   git clone https://github.com/yourusername/job-application-form-testing.git
+   cd job-application-form-testing
+   ```
+
+2. **Install Dependencies**:
+   Make sure you have Node.js installed. Then, run:
+   ```
+   npm install
+   ```
+
+3. **Ensure Playwright Browsers Are Installed**:
+   Run the following command to install the necessary browsers:
+   ```
+   npx playwright install
+   ```
+
+## Running the Tests
+To execute the tests, use the following command:
+```
+npx playwright test
+```
+
+### Test Results
+After running the tests, you will see results in the terminal indicating which tests passed or failed. Screenshots of failed tests will be saved in the project directory for review.
+
+## Contributing
+Contributions are welcome! If you have suggestions for improvements or additional tests, feel free to open an issue or submit a pull request.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
