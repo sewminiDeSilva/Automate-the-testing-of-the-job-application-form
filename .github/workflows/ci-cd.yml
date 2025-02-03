@@ -1,38 +1,27 @@
-name: CI/CD Pipeline
-
+name: Playwright Tests
 on:
   push:
-    branches:
-      - main  # Trigger on pushes to the main branch
+    branches: [ main, master ]
   pull_request:
-    branches:
-      - main  # Trigger on pull requests to the main branch
-
+    branches: [ main, master ]
 jobs:
   test:
-   
-    runs-on: ${{ matrix.os }}  # Use matrix variable for OS
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]  # Define OS options
-
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'  # Specify Node.js version
-
-      - name: Install dependencies
-        run: npm install  # Install project dependencies
-
-      - name: Run Playwright Tests
-        run: npx playwright test  # Run your Playwright tests
-
-      - name: Upload Test Report
-        uses: actions/upload-artifact@v2
-        with:
-          name: playwright-report
-          path: playwright-report/  # Specify path to your report directory
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Run Playwright tests
+      run: npx playwright test
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30
